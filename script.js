@@ -9,7 +9,7 @@ let startMarker, endMarker, waypointMarkers = [], routeLine;
 
 window.onload = () => {
   map = L.map('map').setView([31.7683, 35.2137], 9);
-  L.tileLayer('./libs/tiles/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap',
     maxZoom: 19,
     minZoom: 2
