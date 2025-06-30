@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Маршруты | Трекер</title>
+
+  <link rel="stylesheet" href="libs/leaflet.css" />
+  <script src="libs/leaflet.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🗺️ Трекер маршрута</h1>
+
+    <div id="map"></div>
+
+    <div class="route-name">
+      <input type="text" id="routeTitle" placeholder="Название маршрута..." />
+    </div>
+
+    <div class="controls">
+      <button onclick="saveStart()">🟢 Старт</button>
+      <button onclick="addWaypoint()">➕ Точка</button>
+      <button onclick="saveEnd()">🔴 Финиш</button>
+      <button onclick="calculateDistance()">📏 Расстояние</button>
+      <button onclick="saveRoute()">💾 Сохранить</button>
+      <button onclick="exportRoute()">⬇️ Экспорт JSON</button>
+      <label class="import-label">
+        📂 Импорт
+        <input type="file" id="importFile" accept=".json" onchange="importRoute()" />
+      </label>
+      <button onclick="clearData()">🧹 Очистить</button>
+    </div>
+
+    <div class="info">
+      <p id="start">Начальная точка: —</p>
+      <p id="end">Конечная точка: —</p>
+      <p id="time">Время между точками: —</p>
+      <h2 id="result">Общее расстояние: —</h2>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
