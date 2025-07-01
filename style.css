@@ -38,7 +38,8 @@ h1 {
   margin-bottom: 1rem;
 }
 
-button, .import-label {
+button,
+.import-label {
   margin: 0.25rem;
   padding: 0.7rem 1rem;
   font-size: 1rem;
@@ -49,7 +50,8 @@ button, .import-label {
   cursor: pointer;
 }
 
-button:hover, .import-label:hover {
+button:hover,
+.import-label:hover {
   background: #005fa3;
 }
 
