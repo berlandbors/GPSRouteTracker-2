@@ -12,18 +12,13 @@ window.onload = () => {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap',
     maxZoom: 19,
-    minZoom: 2
   }).addTo(map);
 
   loadFromLocalStorage();
 };
 
 function getLocation(callback) {
-  if (!navigator.geolocation) {
-    alert("Геолокация не поддерживается");
-    return;
-  }
-
+  if (!navigator.geolocation) return alert("Геолокация не поддерживается");
   navigator.geolocation.getCurrentPosition(
     pos => callback({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
     err => alert("Ошибка геолокации: " + err.message)
@@ -83,7 +78,7 @@ function calculateDistance() {
   if (startCoords) all.push(startCoords);
   all.push(...waypoints);
   if (endCoords) all.push(endCoords);
-  if (all.length < 2) return alert("Добавьте как минимум 2 точки");
+  if (all.length < 2) return alert("Добавьте минимум 2 точки");
 
   let sum = 0;
   for (let i = 0; i < all.length - 1; i++) {
@@ -237,4 +232,4 @@ function loadFromLocalStorage() {
   } catch (err) {
     console.error("Ошибка при загрузке маршрута");
   }
-                                                   }
+}
