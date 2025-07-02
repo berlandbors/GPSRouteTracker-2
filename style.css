@@ -67,3 +67,16 @@ button:hover,
 .info {
   font-size: 1.1rem;
 }
+
+#gps-status {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  z-index: 9999;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
