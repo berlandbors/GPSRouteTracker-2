@@ -18,10 +18,41 @@ window.onload = () => {
 };
 
 function getLocation(callback) {
-  if (!navigator.geolocation) return alert("Геолокация не поддерживается");
-  navigator.geolocation.getCurrentPosition(
-    pos => callback({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
-    err => alert("Ошибка геолокации: " + err.message)
+  if (!navigator.geolocation) {
+    alert("Геолокация не поддерживается");
+    return;
+  }
+
+  const status = document.createElement("div");
+  status.textContent = "⏳ Определяем точное местоположение...";
+  status.id = "gps-status";
+  document.body.appendChild(status);
+
+  const watchId = navigator.geolocation.watchPosition(
+    position => {
+      const accuracy = position.coords.accuracy;
+      const coords = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      };
+
+      if (accuracy <= 25) {
+        navigator.geolocation.clearWatch(watchId);
+        status.remove();
+        callback(coords);
+      } else {
+        status.textContent = `🔄 Ищем точнее... Точность: ${accuracy.toFixed(1)} м`;
+      }
+    },
+    error => {
+      status.remove();
+      alert("Ошибка геолокации: " + error.message);
+    },
+    {
+      enableHighAccuracy: true,
+      maximumAge: 0,
+      timeout: 10000
+    }
   );
 }
 
