@@ -10,19 +10,30 @@ let startMarker, endMarker, waypointMarkers = [], routeLine;
 window.onload = () => {
   map = L.map('map').setView([31.7683, 35.2137], 9);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap',
+    attribution: '&copy; OpenStreetMap contributors',
     maxZoom: 19,
   }).addTo(map);
 
+  requestLocationAccess();
   loadFromLocalStorage();
 };
 
-function getLocation(callback) {
+function requestLocationAccess() {
   if (!navigator.geolocation) {
-    alert("Геолокация не поддерживается");
+    alert("Ваш браузер не поддерживает геолокацию.");
     return;
   }
 
+  navigator.geolocation.getCurrentPosition(
+    () => console.log("Геолокация разрешена ✅"),
+    err => {
+      alert("⚠ Включите геолокацию (GPS) в настройках устройства или браузера.\n\nОшибка: " + err.message);
+    },
+    { enableHighAccuracy: true }
+  );
+}
+
+function getLocation(callback) {
   const status = document.createElement("div");
   status.textContent = "⏳ Определяем точное местоположение...";
   status.id = "gps-status";
@@ -39,6 +50,8 @@ function getLocation(callback) {
       if (accuracy <= 25) {
         navigator.geolocation.clearWatch(watchId);
         status.remove();
+
+        map.setView([coords.lat, coords.lon], 16);
         callback(coords);
       } else {
         status.textContent = `🔄 Ищем точнее... Точность: ${accuracy.toFixed(1)} м`;
